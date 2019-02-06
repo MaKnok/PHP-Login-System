@@ -1,6 +1,6 @@
 
 $(document)
-.on('submit', 'form.js-register, form.js-login', function(event){
+.on('submit', 'form.js-register', function(event){
 
 	event.preventDefault();
 
@@ -103,7 +103,7 @@ $(document)
 			window.location = data.redirect;
 		}else if(data.error !== undefined){
 			_error
-				.text(data.error)
+				.html(data.error)
 				.show();
 		}
 		

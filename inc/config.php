@@ -7,6 +7,11 @@
 	
 	}
 
+	//sessions are already turned on
+	if(!isset($_SESSION)){
+		session_start();
+	}
+
 	//our config is below
 	//allow errors
 	error_reporting(-1);
