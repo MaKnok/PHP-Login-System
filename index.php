@@ -27,6 +27,9 @@ require_once "inc/config.php"
 
   <body>
   <div class="uk-section uk-container">
+
+    <h1>Dashboard</h1>
+    
     <?php
 
       echo 'Hello world, today is: ';

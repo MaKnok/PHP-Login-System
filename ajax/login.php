@@ -16,18 +16,15 @@
 		$email = Filter::String( $_POST['email'] );
 		$password = $_POST['password'];
 
-		//make sure the user does not exist;
-		$findUser = $con -> prepare("SELECT user_id, password FROM users WHERE email = LOWER(:email) LIMIT 1");
-		$findUser -> bindParam(':email', $email, PDO::PARAM_STR);
-		$findUser -> execute();
+		$user_found = User::Find($email, true);
 
 		//make sure the user CAN be added and is added;
-		if ($findUser -> rowCount() == 1 ){
+		if ($user_found){
 			//the user exists,try and sign them in
 			//we can also check if they are able to log in
-			$User = $findUser -> fetch(PDO::FETCH_ASSOC);
-			$user_id = (int) $User['user_id'];
-			$hash = (string) $User['password'];
+
+			$user_id = (int) $user_found['user_id'];
+			$hash = (string) $user_found['password'];
 
 			if (password_verify($password,$hash)){
 				//user is signed in
@@ -38,7 +35,6 @@
 				$return['error'] = 'Invalid user email/password combo';
 			}
 
-			//$return['error'] = 'You already have an account';
 	
 		}else{
 			//they need to create a new account
